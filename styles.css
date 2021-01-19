@@ -58,7 +58,7 @@
     color: black;
 }
 
-.operator {
+.operator, #equals {
     background-color: #de0000;
     color: black;
 }
