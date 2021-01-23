@@ -14,15 +14,24 @@ function divide(a, b) {
     return a / b;
 }
 
+function roundNumber(a) {
+    return Math.round( ( a + Number.EPSILON ) * 10000 ) / 10000;
+}
+
 function operate(operator, a, b) {
     if (operator == "+") {
-        return add(a, b);
+        let answer = add(a, b);
+        return roundNumber(answer);
     } else if (operator == "-") {
-        return subtract(a, b);
+        let answer = subtract(a, b);
+        return roundNumber(answer);
     } else if (operator == "*") {
-        return multiply(a, b);
+        let answer = multiply(a, b);
+        return roundNumber(answer);
     } else if (operator == "/") {
-        return divide(a, b);
+        let answer = divide(a, b);
+        return roundNumber(answer);
+
     }
 }
 
@@ -57,8 +66,8 @@ numberBtns.forEach((button) => {
 
         numHasBeenClicked = true;
 
-        console.log("NUM firstValue is " + firstValue);
-        console.log("NUM secondValue is " + secondValue);
+        //console.log("NUM firstValue is " + firstValue);
+        //console.log("NUM secondValue is " + secondValue);
     });
 });
 
@@ -72,21 +81,31 @@ operatorBtns.forEach((button) => {
         }
         opHasBeenClicked = true;
         operator = button.value;
-        console.log("OP firstValue is " + firstValue);
-        console.log("OP secondValue is " + secondValue);
+        //console.log("OP firstValue is " + firstValue);
+        //console.log("OP secondValue is " + secondValue);
         numHasBeenClicked = false;
     });
 });
 
-//TODO: check if opHasBeenClicked is true
 const equalsBtn = document.querySelector('#equals');
 equalsBtn.addEventListener('click', () => {
-    console.log("EQUALS firstValue is " + firstValue);
-    console.log("EQUALS secondValue is " + secondValue);
-    display.textContent = operate(operator, firstValue, secondValue);
-    firstValue = parseInt(display.textContent);
+    //console.log("EQUALS firstValue is " + firstValue);
+    //console.log("EQUALS secondValue is " + secondValue);
+    if (opHasBeenClicked === false || numHasBeenClicked === false) {
+        return; // if operator or 2nd number has not been clicked, ignore equals sign click
+    }
     opHasBeenClicked = false;
     numHasBeenClicked = false;
+    if (operator === "/" && secondValue === 0) {
+        display.textContent = "Can't do that!"
+        return; // doesn't let user divide by 0
+    }
+    display.textContent = operate(operator, firstValue, secondValue);
+    if (display.textContent.length > 14) { // can only handle <= 14 digits
+        display.textContent = "Number too big!"
+        return;
+    };
+    firstValue = parseInt(display.textContent);
 });
 
 const clearBtn = document.querySelector('#clear');
@@ -99,5 +118,9 @@ clearBtn.addEventListener('click', () => {
     secondValue = 0;
 });
 
+// const decimalBtn = document.querySelector('#decimal');
+// decimalBtn.addEventListener('click', () => {
+//     display.textContent = toString(display.textContent) + '.';
+// });
 
 //TODO: Add animation for click events
