@@ -42,29 +42,40 @@ let firstValue = 0;
 let secondValue = 0;
 let operator;
 let opHasBeenClicked = false;
+let lastButtonClicked;
 
 const numberBtns = Array.from(document.getElementsByClassName('num'));
 numberBtns.forEach((button) => {
     button.addEventListener('click', () => {
         let thisButtonValue = button.value;
+
+        // display.textContent.indexOf('.') != -1   // true if display contains '.'
+        if (thisButtonValue === '.') {
+            if (display.textContent.indexOf('.') != -1 && lastButtonClicked != 'op') {
+                return;
+                // ignores decimal button if display contains '.' unless an operator was last clicked
+            }
+        }
+
         if (numHasBeenClicked === false) {
             display.textContent = thisButtonValue;
             if (opHasBeenClicked === false) {
-                firstValue = parseInt(display.textContent);
+                firstValue = parseFloat(display.textContent);
             } else if (opHasBeenClicked === true) {
-                secondValue = parseInt(display.textContent);
+                secondValue = parseFloat(display.textContent);
             }
         } else if (numHasBeenClicked === true) {
             //concatenate numbers as strings
             display.textContent = display.textContent + thisButtonValue;
             if (opHasBeenClicked === false) {
-                firstValue = parseInt(display.textContent);
+                firstValue = parseFloat(display.textContent);
             } else if (opHasBeenClicked === true) {
-                secondValue = parseInt(display.textContent);
+                secondValue = parseFloat(display.textContent);
             }
         }
 
         numHasBeenClicked = true;
+        lastButtonClicked = 'num';
 
         //console.log("NUM firstValue is " + firstValue);
         //console.log("NUM secondValue is " + secondValue);
@@ -84,6 +95,7 @@ operatorBtns.forEach((button) => {
         //console.log("OP firstValue is " + firstValue);
         //console.log("OP secondValue is " + secondValue);
         numHasBeenClicked = false;
+        lastButtonClicked = 'op';
     });
 });
 
@@ -96,6 +108,7 @@ equalsBtn.addEventListener('click', () => {
     }
     opHasBeenClicked = false;
     numHasBeenClicked = false;
+    lastButtonClicked = 'equals';
     if (operator === "/" && secondValue === 0) {
         display.textContent = "Can't do that!"
         return; // doesn't let user divide by 0
@@ -105,7 +118,7 @@ equalsBtn.addEventListener('click', () => {
         display.textContent = "Number too big!"
         return;
     };
-    firstValue = parseInt(display.textContent);
+    firstValue = parseFloat(display.textContent);
 });
 
 const clearBtn = document.querySelector('#clear');
@@ -116,11 +129,12 @@ clearBtn.addEventListener('click', () => {
     opHasBeenClicked = false;
     firstValue = 0;
     secondValue = 0;
+    lastButtonClicked = 'clear';
 });
 
 // const decimalBtn = document.querySelector('#decimal');
 // decimalBtn.addEventListener('click', () => {
-//     display.textContent = toString(display.textContent) + '.';
+//     display.textContent = display.textContent + '.';
 // });
 
 //TODO: Add animation for click events
