@@ -132,9 +132,19 @@ clearBtn.addEventListener('click', () => {
     lastButtonClicked = 'clear';
 });
 
-// const decimalBtn = document.querySelector('#decimal');
-// decimalBtn.addEventListener('click', () => {
-//     display.textContent = display.textContent + '.';
-// });
+const backBtn = document.querySelector('#backspace');
+backBtn.addEventListener('click', () => {
+    if (lastButtonClicked === 'num') {
+        display.textContent = display.textContent.slice(0, -1);
+    } else if (lastButtonClicked === 'op') {
+        operator = '';
+        opHasBeenClicked = false;
+        numHasBeenClicked = true;
+        lastButtonClicked = 'num';
+    }
+});
 
+//TODO: Add keyboard support
+// TODO: Add symbol to backspace button
 //TODO: Add animation for click events
+//TODO: Change color on operator after being clicked and take color away if number or backspace is clicked

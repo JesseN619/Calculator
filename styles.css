@@ -80,10 +80,25 @@
     height: 75px;
     margin: auto;
     text-align: left;
-    padding-left: 29px;
+    padding-left: 27px;
 }
 
 #zero:hover {
+    width: 157px;
+    height: 77px;
+}
+
+#clear {
+    grid-column: span 2;
+    border-radius: 40px;
+    width: 155px;
+    height: 75px;
+    margin: auto;
+    text-align: left;
+    padding-left: 26px;
+}
+
+#clear:hover {
     width: 157px;
     height: 77px;
 }
