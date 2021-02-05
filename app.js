@@ -77,8 +77,16 @@ numberBtns.forEach((button) => {
         numHasBeenClicked = true;
         lastButtonClicked = 'num';
 
-        //console.log("NUM firstValue is " + firstValue);
-        //console.log("NUM secondValue is " + secondValue);
+        if (display.textContent.length > 14) {
+            display.textContent = 'Number too big!';
+            //The following variables act as if clear was pressed
+            numHasBeenClicked = false;
+            operator = '';
+            opHasBeenClicked = false;
+            firstValue = 0;
+            secondValue = 0;
+            lastButtonClicked = 'clear';
+        }
     });
 });
 
@@ -92,8 +100,6 @@ operatorBtns.forEach((button) => {
         }
         opHasBeenClicked = true;
         operator = button.value;
-        //console.log("OP firstValue is " + firstValue);
-        //console.log("OP secondValue is " + secondValue);
         numHasBeenClicked = false;
         lastButtonClicked = 'op';
     });
@@ -101,8 +107,6 @@ operatorBtns.forEach((button) => {
 
 const equalsBtn = document.querySelector('#equals');
 equalsBtn.addEventListener('click', () => {
-    //console.log("EQUALS firstValue is " + firstValue);
-    //console.log("EQUALS secondValue is " + secondValue);
     if (opHasBeenClicked === false || numHasBeenClicked === false) {
         return; // if operator or 2nd number has not been clicked, ignore equals sign click
     }
@@ -144,7 +148,12 @@ backBtn.addEventListener('click', () => {
     }
 });
 
+const allBtns = document.querySelectorAll('button');
+allBtns.forEach((button) => {
+    button.addEventListener('click', () => {
+        button.style.color
+    });
+});
+
 //TODO: Add keyboard support
-// TODO: Add symbol to backspace button
-//TODO: Add animation for click events
 //TODO: Change color on operator after being clicked and take color away if number or backspace is clicked

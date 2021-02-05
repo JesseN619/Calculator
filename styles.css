@@ -25,7 +25,7 @@
 .btn {
     border: none;
     color: #de0000;
-    background-color: black;
+    background-color: hsl(0, 0%, 0%);
     outline: none;
     /*
     -webkit-transition: color .6s ease-in-out;
@@ -41,6 +41,11 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.btn:active {
+    font-size: 35px;
+    box-shadow: none;
+}
+
 .round-btn {
     border-radius: 50%;
     margin: auto;
@@ -53,13 +58,18 @@
     height: 77px;
 }
 
+.round-btn:active {
+    width: 75px;
+    height: 75px;
+}
+
 .special {
-    background-color: #d6d6d6;
+    background-color: 	hsl(0, 0%, 84%); /*was #d6d6d6 */
     color: black;
 }
 
 .operator, #equals {
-    background-color: #de0000;
+    background-color: hsl(0, 100%, 44%);
     color: black;
 }
 
@@ -88,6 +98,11 @@
     height: 77px;
 }
 
+#zero:active {
+    width: 155px;
+    height: 75px;
+}
+
 #clear {
     grid-column: span 2;
     border-radius: 40px;
@@ -101,4 +116,43 @@
 #clear:hover {
     width: 157px;
     height: 77px;
+}
+
+#clear:active {
+    width: 155px;
+    height: 75px;
+}
+
+#backspace {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#backspace-img {
+    height: 40px;
+    width: auto;
+}
+
+#backspace:hover > #backspace-img{
+    height: 42px;
+}
+
+#backspace:active > #backspace-img{
+    height: 40px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 25px;
+    color: black;
+    text-align: center;
+    font-size: 12px;
+}
+
+a {
+    font-size: 12px;
 }
